@@ -1,0 +1,20 @@
+        if (ReportTransfer.BillNo != null)
+            {
+                this.reportViewer1.RefreshReport();
+
+                string str;
+                str = "SELECT * from TB where BillNo='" +  transfer.billno + "'";
+                SqlCommand cmd = new SqlCommand(str, conn.myconn);
+                SqlDataAdapter myadr = new SqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                myadr.Fill(ds);
+
+                reportViewer1.ProcessingMode = Microsoft.Reporting.WinForms.ProcessingMode.Local;
+                reportViewer1.LocalReport.ReportEmbeddedResource = "MediSoft.SalesCounterBill.rdlc";
+                reportViewer1.LocalReport.DataSources.Clear();
+                reportViewer1.LocalReport.DataSources.Add(new Microsoft.Reporting.WinForms.ReportDataSource("DataSet1", ds.Tables[0]));
+
+                this.reportViewer1.RefreshReport();  
+            }
+            this.reportViewer1.RefreshReport();
+            this.reportViewer1.RefreshReport();
